@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="locale" class="java.util.Locale" factory-method="getDefault" />
+	<bean id="someUser" class="pl.wojcik.jakub.spring_tutorial.User">
+		<constructor-arg name="age" value="22" />
+		<constructor-arg name="name" value="Kuba" />
+		<constructor-arg name="locale" ref="locale" />
+	</bean>
+	<bean id="someBean" class="pl.wojcik.jakub.spring_tutorial.SomeBean">
+		<property name="user" ref="someUser" />
+		<property name="stringValue" value="TO jest napis!" />
+		<property name="intValue" value="10" />
+	</bean>
+
+	<!-- POWTARZAMY TO SAMO, TYLKO Z UŻYCIEM PRZESTRZENI NAZW -->
+	<bean id="someUser2" class="pl.wojcik.jakub.spring_tutorial.User"
+		c:name="Sylwia" c:age="21" c:locale-ref="locale" />
+
+	<bean id="someBean2" class="pl.wojcik.jakub.spring_tutorial.SomeBean"
+		p:user-ref="someUser2" p:intValue="55" p:stringValue="String value." />
+
+	<!-- TO NIE BĘDZIE SIĘ WYWALAŁO PRZY PRÓBIE KOMPILACJI BEZ INFO O DEBUGOWANIU -->
+	<!-- zamiast nazw argumentów są ich indeksy -->
+	<bean id="someUser3" class="pl.wojcik.jakub.spring_tutorial.User"
+		c:_0="Zdziszek" c:_1="50" c:_2-ref="locale" />
+
+</beans>

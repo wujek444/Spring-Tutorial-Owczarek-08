@@ -1,0 +1,26 @@
+Ułatwienie ustawiania argumentów konstruktora i właściwości (żebyśmy nie musieli się dużo opisać).
+
+1. Wchodzimy do context.xml -> namespaces
+2. Zaznaczamy "p" i "c" -> w pliku konfiguracyjnym pojawią się dwie rzeczy:
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+3. Zamiast tego:
+	<bean id="someUser" class="pl.wojcik.jakub.spring_tutorial.User">
+		<constructor-arg name="age" value="22" />
+		<constructor-arg name="name" value="Kuba" />
+		<constructor-arg name="locale" ref="locale" />
+	</bean>
+	
+	Możemy skrócić kod do tego:
+	<bean id="someUser2" class="pl.wojcik.jakub.spring_tutorial.User"
+		c:name="Sylwia" c:age="21" c:locale-ref="locale" />
+		
+----UWAGA------
+Przestrzeni nazw "c" używamy jako odpowiednika "constructor-args", a przestrzeni nazw "p"
+jako odpowiednika "property".
+
+Z tymi parametrami trzeba uważać!!!!!! Jeżeli spróbujemy uruchomić aplikację bez informacji o 
+debugowaniu (ustawiane w kompilatorze), to aplikacja się nie zbuduje. Dzieje się tak, ponieważ maszyna wirtualna
+nie widzi nazw argumentów w konstruktorze. (z właściwościami obiektu nie ma problemu)
+
+Da się to obejść!! (przykład w kodzie dla beana z numerem 3)
